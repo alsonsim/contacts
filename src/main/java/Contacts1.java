@@ -1,12 +1,10 @@
 import java.util.Scanner;
 
-
 /**
  * This class is used to maintain a list of person data which are saved
  * in a text file.
  **/
 public class Contacts1 {
-
 
     /**
      * Version info of the program.
@@ -73,9 +71,10 @@ public class Contacts1 {
 
     private static final String DIVIDER = "===================================================";
 
-
-    /* We use a String array to store details of a single person.
-     * The constants given below are the indexes for the different data elements of a person
+    /*
+     * We use a String array to store details of a single person.
+     * The constants given below are the indexes for the different data elements of
+     * a person
      * used by the internal String[] storage format.
      * For example, a person's name is stored as the 0th element in the array.
      */
@@ -94,7 +93,8 @@ public class Contacts1 {
     private static final int CAPACITY = 100;
 
     /**
-     * If the first non-whitespace character in a user's input line is this, that line will be ignored.
+     * If the first non-whitespace character in a user's input line is this, that
+     * line will be ignored.
      */
     private static final char INPUT_COMMENT_MARKER = '#';
 
@@ -115,7 +115,6 @@ public class Contacts1 {
      * Total number of persons in the list
      */
     private static int count;
-
 
     /*
      * NOTE : =============================================================
@@ -151,6 +150,10 @@ public class Contacts1 {
      * ====================================================================
      */
 
+    /**
+     * Shows the welcome message to the user.
+     * This will be in a well formatted way.
+     */
     private static void showWelcomeMessage() {
         showToUser(DIVIDER, DIVIDER, VERSION, MESSAGE_WELCOME, DIVIDER);
     }
@@ -182,10 +185,9 @@ public class Contacts1 {
         System.exit(0);
     }
 
-
     /*
      * ===========================================
-     *           COMMAND LOGIC
+     * COMMAND LOGIC
      * ===========================================
      */
 
@@ -200,34 +202,36 @@ public class Contacts1 {
         final String commandType = commandTypeAndParams[0];
         final String commandArgs = commandTypeAndParams[1];
         switch (commandType) {
-        case COMMAND_ADD_WORD:
-            return executeAddPerson(commandArgs);
-        case COMMAND_LIST_WORD:
-            return executeListAllPersonsInAddressBook();
-        case COMMAND_CLEAR_WORD:
-            return executeClearAddressBook();
-        case COMMAND_HELP_WORD:
-            return getUsageInfoForAllCommands();
-        case COMMAND_EXIT_WORD:
-            executeExitProgramRequest();
-            // Fallthrough
-        default:
-            return getMessageForInvalidCommandInput(commandType, getUsageInfoForAllCommands());
+            case COMMAND_ADD_WORD:
+                return executeAddPerson(commandArgs);
+            case COMMAND_LIST_WORD:
+                return executeListAllPersonsInAddressBook();
+            case COMMAND_CLEAR_WORD:
+                return executeClearAddressBook();
+            case COMMAND_HELP_WORD:
+                return getUsageInfoForAllCommands();
+            case COMMAND_EXIT_WORD:
+                executeExitProgramRequest();
+                // Fallthrough
+            default:
+                return getMessageForInvalidCommandInput(commandType, getUsageInfoForAllCommands());
         }
     }
 
     /**
      * Splits raw user input into command word and command arguments string
      *
-     * @return size 2 array; first element is the command type and second element is the arguments string
+     * @return size 2 array; first element is the command type and second element is
+     *         the arguments string
      */
     private static String[] splitCommandWordAndArgs(String rawUserInput) {
         final String[] split = rawUserInput.trim().split("\\s+", 2);
-        return split.length == 2 ? split : new String[]{split[0], ""}; // else case: no parameters
+        return split.length == 2 ? split : new String[] { split[0], "" }; // else case: no parameters
     }
 
     /**
-     * Constructs a generic feedback message for an invalid command from user, with instructions for correct usage.
+     * Constructs a generic feedback message for an invalid command from user, with
+     * instructions for correct usage.
      *
      * @param correctUsageInfo message showing the correct usage
      * @return invalid command args feedback message
@@ -238,7 +242,8 @@ public class Contacts1 {
 
     /**
      * Adds a person (specified by the command args) to the address book.
-     * The entire command arguments string is treated as a string representation of the person to add.
+     * The entire command arguments string is treated as a string representation of
+     * the person to add.
      *
      * @param commandArgs full command args string from the user
      * @return feedback display message for the operation result
@@ -247,7 +252,8 @@ public class Contacts1 {
         // try decoding a person from the raw args
         final String[] decodeResult = decodePersonFromString(commandArgs);
 
-        // checks if args are valid (decode result will not be present if the person is invalid)
+        // checks if args are valid (decode result will not be present if the person is
+        // invalid)
         if (decodeResult == null) {
             return getMessageForInvalidCommandInput(COMMAND_ADD_WORD, getUsageInfoForAddCommand());
         }
@@ -270,7 +276,8 @@ public class Contacts1 {
     }
 
     /**
-     * Constructs a feedback message to summarise an operation that displayed a listing of persons.
+     * Constructs a feedback message to summarise an operation that displayed a
+     * listing of persons.
      *
      * @param personsDisplayed used to generate summary
      * @return summary message for persons displayed
@@ -278,7 +285,6 @@ public class Contacts1 {
     private static String getMessageForPersonsDisplayedSummary(String[][] personsDisplayed) {
         return String.format(MESSAGE_PERSONS_FOUND_OVERVIEW, count);
     }
-
 
     /**
      * Clears all persons in the address book.
@@ -310,13 +316,14 @@ public class Contacts1 {
 
     /*
      * ===========================================
-     *               UI LOGIC
+     * UI LOGIC
      * ===========================================
      */
 
     /**
      * Prompts for the command and reads the text entered by the user.
-     * Ignores lines with first non-whitespace char equal to {@link #INPUT_COMMENT_MARKER} (considered comments)
+     * Ignores lines with first non-whitespace char equal to
+     * {@link #INPUT_COMMENT_MARKER} (considered comments)
      *
      * @return full line entered by the user
      */
@@ -372,7 +379,8 @@ public class Contacts1 {
     }
 
     /**
-     * Constructs a prettified listing element message to represent a person and their data.
+     * Constructs a prettified listing element message to represent a person and
+     * their data.
      *
      * @param visibleIndex visible index for this listing
      * @param person       to show
@@ -419,10 +427,9 @@ public class Contacts1 {
         count = 0;
     }
 
-
     /*
      * ===========================================
-     *             PERSON METHODS
+     * PERSON METHODS
      * ===========================================
      */
 
@@ -474,7 +481,7 @@ public class Contacts1 {
      *
      * @param encoded string to be decoded
      * @return if cannot decode: empty Optional
-     * else: Optional containing decoded person
+     *         else: Optional containing decoded person
      */
     private static String[] decodePersonFromString(String encoded) {
         // check that we can extract the parts of a person from the encoded string
@@ -484,16 +491,16 @@ public class Contacts1 {
         final String[] decodedPerson = makePersonFromData(
                 extractNameFromPersonString(encoded),
                 extractPhoneFromPersonString(encoded),
-                extractEmailFromPersonString(encoded)
-        );
+                extractEmailFromPersonString(encoded));
         // check that the constructed person is valid
         return isPersonDataValid(decodedPerson) ? decodedPerson : null;
     }
 
-
     /**
-     * Returns true if person data (email, name, phone etc) can be extracted from the argument string.
-     * Format is [name] p/[phone] e/[email], phone and email positions can be swapped.
+     * Returns true if person data (email, name, phone etc) can be extracted from
+     * the argument string.
+     * Format is [name] p/[phone] e/[email], phone and email positions can be
+     * swapped.
      *
      * @param personData person string representation
      */
@@ -521,7 +528,8 @@ public class Contacts1 {
     }
 
     /**
-     * Extracts substring representing phone number from person string representation
+     * Extracts substring representing phone number from person string
+     * representation
      *
      * @param encoded person string representation
      * @return phone number argument WITHOUT prefix
@@ -584,7 +592,7 @@ public class Contacts1 {
      */
     private static boolean isValidName(String name) {
         return !name.isEmpty();
-        //TODO: implement a better validation
+        // TODO: implement a better validation
     }
 
     /**
@@ -594,7 +602,7 @@ public class Contacts1 {
      */
     private static boolean isValidPhone(String phone) {
         return !phone.isEmpty();
-        //TODO: implement a better validation
+        // TODO: implement a better validation
     }
 
     /**
@@ -605,13 +613,12 @@ public class Contacts1 {
      */
     private static boolean isValidEmail(String email) {
         return !email.isEmpty() && email.contains("@");
-        //TODO: implement a better validation
+        // TODO: implement a better validation
     }
-
 
     /*
      * ===============================================
-     *         COMMAND HELP INFO FOR USERS
+     * COMMAND HELP INFO FOR USERS
      * ===============================================
      */
 
@@ -667,10 +674,9 @@ public class Contacts1 {
                 + String.format(MESSAGE_COMMAND_HELP_EXAMPLE, COMMAND_EXIT_EXAMPLE) + LS;
     }
 
-
     /*
      * ============================
-     *         UTILITY METHODS
+     * UTILITY METHODS
      * ============================
      */
 
